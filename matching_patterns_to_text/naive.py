@@ -1,8 +1,8 @@
-def naive_search(pattern, text):
-    pattern_indices = []
+def naive_matching(pattern, text):
+    pattern_shifts = []
     pat_len = len(pattern)
-    for i in range(len(text) - pat_len + 1):
-        if pattern == text[i:(i+pat_len)]:
-            pattern_indices.append(i)
+    for s in range(len(text) - pat_len + 1):
+        if pattern == text[s:(s+pat_len)]:
+            pattern_shifts.append(s)
 
-    return pattern_indices
+    return pattern_shifts

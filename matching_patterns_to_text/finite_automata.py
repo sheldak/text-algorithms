@@ -1,36 +1,34 @@
-def transition_table(pattern):  # jeszcze dodac obsluge sytuacji gdy jakis prefix wzorca pojawia sie pozniej
+def transition_table(pattern):
     alphabet = []
     for i in pattern:
         if i not in alphabet:
             alphabet.append(i)
 
     delta = []
-    for q in range(len(pattern)):
+    for q in range(len(pattern)+1):
         delta.append({})
-        delta[q][pattern[q]] = q+1
 
         for letter in alphabet:
-            if letter != pattern[q]:
-                delta[q][letter] = 0
+            k = min(len(pattern), q + 1)
 
-    delta.append({})
-    for letter in alphabet:
-        delta[len(pattern)][letter] = 0
+            while k > 0 and pattern[:k] != (pattern[:q] + letter)[q - k + 1:]:
+                k -= 1
+            delta[q][letter] = k
 
-    print(delta)
     return delta
 
 
-def finite_automata_search(text, delta):
-    pattern_indices = []
+def finite_automata_matching(text, delta):
+    pattern_shifts = []
     q = 0
     for s in range(0, len(text)):
-        try:
+        if text[s] in delta[q]:
             q = delta[q][text[s]]
-            if q == len(delta):
-                pattern_indices.append(s + 1 - q)
+            if q == len(delta) - 1:
+                pattern_shifts.append(s + 1 - q)
                 q = 0
-        except:
+        else:
             q = 0
 
-    return pattern_indices
+    return pattern_shifts
+
