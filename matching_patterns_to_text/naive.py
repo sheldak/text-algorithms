@@ -1,4 +1,4 @@
-def naive_matching(pattern, text):
+def naive_matching(text, pattern):
     pattern_shifts = []
     pat_len = len(pattern)
     for s in range(len(text) - pat_len + 1):

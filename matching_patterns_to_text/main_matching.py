@@ -1,7 +1,16 @@
 from time import time
 
 from matching_patterns_to_text.naive import naive_matching
-from matching_patterns_to_text.finite_automata import transition_table, finite_automata_matching
+from matching_patterns_to_text.finite_automata import finite_automata_matching
+from matching_patterns_to_text.knuth_morris_pratt import kmp_matching
+
+
+def algorithm_result(text, pattern, algorithm):
+    start_time = time()
+    pattern_indices = algorithm(text, pattern)
+    print(pattern_indices)
+    print(len(pattern_indices), "\n")
+    print(time() - start_time, "\n")
 
 
 def find_patterns(pattern, file_path):
@@ -9,17 +18,9 @@ def find_patterns(pattern, file_path):
         text = file.read()
         # text = "art"
 
-        start_time = time()
-        pattern_indices = naive_matching(pattern, text)
-        print(pattern_indices)
-        print(len(pattern_indices), "\n")
-        print(time() - start_time, "\n")
-
-        start_time = time()
-        pattern_indices = finite_automata_matching(text, transition_table(pattern))
-        print(pattern_indices)
-        print(len(pattern_indices), "\n")
-        print(time() - start_time, "\n")
+        algorithm_result(text, pattern, naive_matching)
+        algorithm_result(text, pattern, finite_automata_matching)
+        algorithm_result(text, pattern, kmp_matching)
 
 
 find_patterns("art", "act_1997_714.txt")

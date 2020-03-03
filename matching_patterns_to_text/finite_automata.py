@@ -18,8 +18,10 @@ def transition_table(pattern):
     return delta
 
 
-def finite_automata_matching(text, delta):
+def finite_automata_matching(text, pattern):
     pattern_shifts = []
+
+    delta = transition_table(pattern)
     q = 0
     for s in range(0, len(text)):
         if text[s] in delta[q]:
@@ -31,4 +33,3 @@ def finite_automata_matching(text, delta):
             q = 0
 
     return pattern_shifts
-
