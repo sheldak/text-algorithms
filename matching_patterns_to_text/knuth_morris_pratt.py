@@ -1,5 +1,6 @@
 def prefix_function(pattern):
-    pi = [-1]
+    pi = []
+    pi.append(-1)
     k = -1
     for q in range(1, len(pattern)):
         while k >= 0 and pattern[k+1] != pattern[q]:
@@ -13,10 +14,9 @@ def prefix_function(pattern):
     return pi
 
 
-def kmp_matching(text, pattern):
+def kmp_matching(text, pattern, pi):
     pattern_shifts = []
 
-    pi = prefix_function(pattern)
     q = -1
     for i in range(len(text)):
         while q >= 0 and pattern[q+1] != text[i]:
@@ -26,7 +26,7 @@ def kmp_matching(text, pattern):
             q += 1
 
         if q == len(pattern) - 1:
-            pattern_shifts.append(i)
+            pattern_shifts.append(i-q)
             q = pi[q]
 
     return pattern_shifts

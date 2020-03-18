@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# idea
+.idea/
+
+# too big file
+wikipedia-tail-kruszwil.txt

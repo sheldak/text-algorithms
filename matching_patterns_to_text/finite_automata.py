@@ -1,8 +1,5 @@
 def transition_table(pattern):
-    alphabet = []
-    for i in pattern:
-        if i not in alphabet:
-            alphabet.append(i)
+    alphabet = set(pattern)
 
     delta = []
     for q in range(len(pattern)+1):
@@ -18,10 +15,9 @@ def transition_table(pattern):
     return delta
 
 
-def finite_automata_matching(text, pattern):
+def finite_automata_matching(text, pattern, delta):
     pattern_shifts = []
 
-    delta = transition_table(pattern)
     q = 0
     for s in range(0, len(text)):
         if text[s] in delta[q]:
